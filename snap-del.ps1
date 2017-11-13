@@ -1,4 +1,12 @@
-﻿
-if($Date
+﻿Import-Module SNAPDRIVE
 
-sdcli snap delete -m $env:computername -D G -s TEST1
+
+#Get old snapshot 
+$OldestSnap = Get-Sdsnapshot -Path H: | Sort SnapshotName -Descending | Select -Last 1
+
+$OldestSnap.SnapshotName
+
+$DelSnap = $OldestSnap.SnapshotName
+
+
+Remove-SdSnapshot -Path H: -Snapshot "$DelSnap" -Confirm:$false
